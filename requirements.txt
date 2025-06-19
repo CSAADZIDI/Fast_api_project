@@ -3,3 +3,4 @@ python-dotenv
 fastapi
 python-dotenv
 uvicorn
+pandas
