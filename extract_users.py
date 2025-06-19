@@ -14,7 +14,7 @@ USERS_FILE = "data/users.json"
 DEFAULT_MIN_NUM_USERS_PER_REQ = 30
 DEFAULT_MAX_NUM_USERS_PER_REQ = 100
 SINCE_ID = 0
-MAX_RETRIES = 5
+
 
 
 def _get_headers():
@@ -116,8 +116,7 @@ def _extract_batch_users(id, num_users_per_page):
         user_data = _extract_user(user_login)
         # Append the new extracted user to the list of users
         extracted_users.append(user_data)
-    # Save all users to the file
-    _save_users(extracted_users)
+    return extracted_users
 
 def _create_users_file():
     fichier = Path(USERS_FILE)
@@ -141,20 +140,8 @@ def _save_users(users):
         with open(USERS_FILE,"w", encoding="utf-8") as file:
             json.dump(users, file, indent=4, ensure_ascii=False) 
 
-def _paging(max_users):
-    num_extracted_users = 0
-    to_extract = max_users
-    since_id_start_batch = SINCE_ID
-    while num_extracted_users < max_users:
-        batch_size = min(to_extract, DEFAULT_MAX_NUM_USERS_PER_REQ)
-        print("batch_size", batch_size)
-        _extract_batch_users(since_id_start_batch,batch_size)
-        num_extracted_users += batch_size
-        print("déja fait num_extracted_users", num_extracted_users)
-        to_extract -= batch_size
-        print(" reste to_extracted",to_extract)
-        since_id_start_batch += batch_size 
-        print(" commence à partir de since_id_start_batch",since_id_start_batch)
+
+
         
             
         
@@ -163,10 +150,23 @@ def _paging(max_users):
         
 def main(max_users):
     print(f"Extraction de {max_users} utilisateurs...") 
-    
-    print("max_users",max_users)
-    _paging(max_users)
-     
+    all_extracted_users = []
+    num_extracted_users = 0
+    to_extract = max_users
+    since_id_start_batch = SINCE_ID
+    while num_extracted_users < max_users:
+        batch_size = min(to_extract, DEFAULT_MAX_NUM_USERS_PER_REQ)
+        print("batch_size", batch_size)
+        users = _extract_batch_users(since_id_start_batch,batch_size)
+        all_extracted_users.extend(users)
+        num_extracted_users += batch_size
+        print("déja fait num_extracted_users", num_extracted_users)
+        to_extract -= batch_size
+        print(" reste to_extracted",to_extract)
+        since_id_start_batch += batch_size 
+        print(" commence à partir de since_id_start_batch",since_id_start_batch)
+        # Save all users to the file
+    _save_users(all_extracted_users) 
         
     
 
@@ -179,6 +179,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--max-users",
         type=int,
+        default = DEFAULT_MIN_NUM_USERS_PER_REQ,
         help="Nombre maximum d'utilisateurs à extraire"
     )
 
