@@ -161,3 +161,14 @@ git clone https://github.com/CSAADZIDI/Fast_api_project.git
 cd Fast_api_project
 ```
 
+N'oubliez pas d'installer les dépendances:
+
+```
+pip install -r requirements.txt
+```
+
+Lancez l'API avec la commande et enjoy !! :D
+
+```
+uvicorn api.main:app --reload
+```
