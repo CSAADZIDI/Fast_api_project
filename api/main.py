@@ -1,11 +1,18 @@
 # api/main.py
 from fastapi import FastAPI
 from .routes import router, users_data
+from fastapi.responses import RedirectResponse
 from .models import User
 import os
 import json
 
-app = FastAPI()
+app = FastAPI(
+    title="API GitHub Users",
+    description="Extraction, filtrage et exposition d'utilisateurs GitHub via une API REST sécurisée.",
+    version="1.0.0"
+    
+    
+)
 
 # Chemin vers le fichier JSON ../data/filtered_users.json
 current_file = os.path.abspath(__file__)
@@ -23,4 +30,9 @@ except Exception as e:
 
 # Monter les routes
 app.include_router(router)
+
+# Redirection depuis la racine vers /docs
+@app.get("/", include_in_schema=False)
+async def root():
+    return RedirectResponse(url="/docs")
 
