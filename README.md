@@ -11,6 +11,7 @@ Ce projet a pour but de :
 
 - Exposer les résultats via une API REST sécurisée développée avec FastAPI, afin de permettre leur consommation par d'autres services ou applications.
 
+
 # 🛠️ Technologies et outils
 
 Langage : Python
@@ -109,7 +110,7 @@ Exemple de requête à tester:
 
 Ou tester via **Swagger UI**  accessible via http://127.0.0.1:8000/docs:
 
-![alt text](image.png)
+
 ![alt text](img/image-6.png)
 
 Il faut tout d'abord s'authentifier :
@@ -151,3 +152,12 @@ Implémenter une mise en cache ou une base de données pour éviter de charger l
 Mettre en place une actualisation automatique des données (extraction périodique).
 
 🚀 Envie de contribuer ou d’échanger autour de ce projet ? N’hésitez pas à proposer une issue, une pull request, ou à me contacter pour toute collaboration !
+
+
+📥 Voilà comment cloner ce projet :
+
+```
+git clone https://github.com/CSAADZIDI/Fast_api_project.git
+cd Fast_api_project
+```
+
