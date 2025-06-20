@@ -1,5 +1,5 @@
 ![alt text](img/image-8.png)
-# **Extraction, Structuration et Exposition des données via API REST**
+# **Extraction, filtrage et exposition d'utilisateurs GitHub via une API REST sécurisée.**
 
 # Présentation du projet:
 
@@ -109,7 +109,7 @@ Exemple de requête à tester:
 
 Ou tester via **Swagger UI**  accessible via http://127.0.0.1:8000/docs:
 
-
+![alt text](image.png)
 ![alt text](img/image-6.png)
 
 Il faut tout d'abord s'authentifier :
