@@ -59,6 +59,10 @@ def filter_users(users:pd.DataFrame)-> pd.DataFrame:
     
     df_avatar_url_filter['created_at'] = pd.to_datetime(df_avatar_url_filter['created_at'])
     df_created_at_filter = df_avatar_url_filter[df_avatar_url_filter['created_at']  > pd.to_datetime("2007-01-01T00:00:00Z") ]
+    
+    # Reconvertir au format ISO string (format d'origine)
+    df_created_at_filter['created_at'] = df_created_at_filter['created_at'].dt.strftime('%Y-%m-%dT%H:%M:%SZ')
+    
     #print("dim après created_at filter", len(df_created_at_filter))
     return df_created_at_filter
     
